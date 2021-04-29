@@ -37,3 +37,9 @@ docker ps
 ```
 docker rm <CONTAINER_NAME>
 ```
+# Login en registro github
+echo $PAT | docker login <HOST> -u <USERNAME> --password-stdin
+# Tag
+docker tag <IMAGEN>:<Tag> <HOST>:<USERNAME>/<PROJECT>:<Version>
+# Push
+docker push <HOST>:<USERNAME>/<PROJECT>:<Version>
