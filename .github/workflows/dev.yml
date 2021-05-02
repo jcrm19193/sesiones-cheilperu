@@ -13,7 +13,7 @@ jobs:
       - name: zip artifact
         run: zip -r release.zip package* src
       - name: upload artifact
-        uses: actions:/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: release-artifact.zip
           path: release.zip
