@@ -20,3 +20,10 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Variable secreta
         run: echo "el valor de PWD es ${{ secrets.PWD }}"
+      - name: deploy
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: user/app:latest
+          secrets: |
+            GIT_AUTH_TOKEN=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 
