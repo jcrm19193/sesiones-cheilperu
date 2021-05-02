@@ -6,11 +6,20 @@ on:
 env:
   IMAGE_NAME: custom
 jobs:
-  Explore-GitHub-Actions:
+  building:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: zip artifact
         run: zip -r release.zip package* src
-        
-      
+      - name: upload artifact
+        uses: actions:/upload-artifact@v2
+        with:
+          name: release-artifact.zip
+          path: release.zip
+  getting:
+    needs: building
+    runs-on: ubuntu-latest
+    steps:
+      - name: download
+        uses: actions/download-artifact@v2
