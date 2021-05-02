@@ -13,7 +13,7 @@ jobs:
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
       - name: Log into registry
-        run: echo "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" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        run: echo 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 | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: Push image
         run: |
           IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
