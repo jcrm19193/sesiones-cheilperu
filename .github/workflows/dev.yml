@@ -3,29 +3,19 @@ on:
   push:
     branches:
       - master
+env:
+  IMAGE_NAME: custom
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: Variable secreta
-        run: echo "el valor de PWD es ${{ secrets.PWD }}"
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
       - name: Log into registry
         run: echo "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" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: deploy
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: user/app:latest
-          secrets: |
-            GIT_AUTH_TOKEN=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 
+      - name: Push image
+        run: |
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          docker tag $IMAGE_NAME $IMAGE_ID:v${{ github.run_id }}-dev
+          docker push $IMAGE_ID:v${{ github.run_id }}-dev
