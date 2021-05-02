@@ -10,12 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
-      - name: Logging
-        run: echo "${{ secrets.PAT }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: Push
-        run: |  
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-          docker tag $IMAGE_NAME $IMAGE_ID:v${{ github.run_id }}-dev
-          docker push $IMAGE_ID:v${{ github.run_id }}-dev
+      - name: zip artifact
+        run: zip -r release.zip package* src
+        
+      
