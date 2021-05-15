@@ -16,7 +16,7 @@ jobs:
           IMAGE=grcr.io/${{ github.actor }}/nodeapp-demo
           docker build -t nodeapp-demo .
       -name: tag
-        run:  |
+        run: |
           IMAGE=grcr.io/${{ github.actor }}/nodeapp-demo  
           docker tag nodeapp-demo $IMAGE:${{ github.run_number }}
       - name: login
