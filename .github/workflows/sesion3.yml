@@ -35,4 +35,4 @@ jobs:
       - name: get k8s config
         run: doctl kubernetes cluster kubeconfig save ${{ secrets.K8S_CLUSTER_NAME }}
       - name: get nodes
-        run: doctl kubernetes get nodes
+        run: kubectl get nodes
