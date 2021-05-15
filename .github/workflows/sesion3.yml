@@ -24,3 +24,14 @@ jobs:
       - name: push
         run: |
           docker push $IMAGE:${{ github.run_number }}
+  updatePod:
+    steps:
+      - name: install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          version: ""
+      - name: get k8s config
+        run: doctl kubernetes cluster kubeconfig save ${{ secrets.K8S_CLUSTER_NAME }}
+      - name: get nodes
+        run: doctl kubernetes get nodes
