@@ -9,7 +9,7 @@ jobs:
   building:
     runs-on: ubuntu-latest
     env:
-      IMAGE=ghcr.io/${{ github.actor }}/nodeapp-demo
+      IMAGE: ghcr.io/${{ github.actor }}/nodeapp-demo
     steps:
       - uses: actions/checkout@v2
       - name: build container
