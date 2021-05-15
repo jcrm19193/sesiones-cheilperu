@@ -16,5 +16,9 @@ jobs:
           IMAGE=grcr.io/${{ github.actor }}/nodeapp-demo:v1.0.0
           docker build -t nodeapp-demo:v1.0.0 .
           docker tag nodeapp-demo:v1.0.0 $IMAGE
-          echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: login
+        run: echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: push
+        run: 
+          IMAGE=grcr.io/${{ github.actor }}/nodeapp-demo:v1.0.0
           docker push $IMAGE
