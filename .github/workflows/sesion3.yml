@@ -1,0 +1,33 @@
+name: GitHub Actions Demo
+on:
+  push:
+    branches:
+      - sesion3
+env:
+  IMAGE_NAME: custom
+jobs:
+  building:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build container
+        working-directory: ./ejemplos/sesion3
+        run: |
+          docker build -t nodeapp-demo:v1.0.0 .
+          docker tag nodeapp-demo:v1.0.0 grcr.io/${{ github.actor }}/nodeapp-demo:v1.0.0
+          
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-artifact.zip
+          path: release.zip
+  getting:
+    needs: building
+    runs-on: ubuntu-latest
+    steps:
+      - name: download
+        uses: actions/download-artifact@v2
+      - name: unzip
+        run: |
+          unzip release-artifact.zip
+          ls -ltra
