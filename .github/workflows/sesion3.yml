@@ -13,15 +13,15 @@ jobs:
       - name: build container
         working-directory: ./ejemplos/sesion3
         run: |
-          IMAGE=grcr.io/${{ github.actor }}/nodeapp-demo
+          IMAGE=ghcr.io/${{ github.actor }}/nodeapp-demo
           docker build -t nodeapp-demo .
       - name: tag
         run: |
-          IMAGE=grcr.io/${{ github.actor }}/nodeapp-demo  
+          IMAGE=ghcr.io/${{ github.actor }}/nodeapp-demo  
           docker tag nodeapp-demo $IMAGE:${{ github.run_number }}
       - name: login
         run: echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: push
         run: |
-          IMAGE=grcr.io/${{ github.actor }}/nodeapp-demo
+          IMAGE=ghcr.io/${{ github.actor }}/nodeapp-demo
           docker push $IMAGE:${{ github.run_number }}
