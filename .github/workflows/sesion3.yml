@@ -13,21 +13,8 @@ jobs:
       - name: build container
         working-directory: ./ejemplos/sesion3
         run: |
+          IMAGE=grcr.io/${{ github.actor }}/nodeapp-demo:v1.0.0
           docker build -t nodeapp-demo:v1.0.0 .
-          docker tag nodeapp-demo:v1.0.0 grcr.io/${{ github.actor }}/nodeapp-demo:v1.0.0
-          
-      - name: upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: release-artifact.zip
-          path: release.zip
-  getting:
-    needs: building
-    runs-on: ubuntu-latest
-    steps:
-      - name: download
-        uses: actions/download-artifact@v2
-      - name: unzip
-        run: |
-          unzip release-artifact.zip
-          ls -ltra
+          docker tag nodeapp-demo:v1.0.0 $IMAGE
+          echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker push $IMAGE
