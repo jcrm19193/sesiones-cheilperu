@@ -9,16 +9,16 @@ jobs:
   building:
     runs-on: ubuntu-latest
     env:
-      IMAGE: ghcr.io/${{ github.actor }}/nodeapp-demo
+      IMAGE: ghcr.io/${{ github.actor }}/nodeapp
     steps:
       - uses: actions/checkout@v2
       - name: build container
         working-directory: ./ejemplos/sesion3
         run: |
-          docker build -t nodeapp-demo .
+          docker build -t nodeapp .
       - name: tag
         run: |
-          docker tag nodeapp-demo $IMAGE:${{ github.run_number }}
+          docker tag nodeapp $IMAGE:${{ github.run_number }}
       - name: login
         run: echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: push
