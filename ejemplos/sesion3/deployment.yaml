@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nodejs
-        image: ghcr.io/maliaga-pantoja/nodeapp:15
+        image: devildeveloper/nodeapp:17
         env:
         - name: PORT
           value: "80"
