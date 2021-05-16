@@ -9,7 +9,7 @@ jobs:
   building:
     runs-on: ubuntu-latest
     env:
-      IMAGE: ghcr.io/${{ github.actor }}/nodeapp
+      IMAGE: devildeveloper/nodeapp
     steps:
       - uses: actions/checkout@v2
       - name: build container
@@ -20,7 +20,8 @@ jobs:
         run: |
           docker tag nodeapp $IMAGE:${{ github.run_number }}
       - name: login
-        run: echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        #run: echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo ${{ secrets.DH_PWD }} | docker login --username devildeveloper --password-stdin
       - name: push
         run: |
           docker push $IMAGE:${{ github.run_number }}
