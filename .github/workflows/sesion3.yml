@@ -36,4 +36,4 @@ jobs:
       - name: get k8s config
         run: doctl kubernetes cluster kubeconfig save ${{ secrets.K8S_CLUSTER_NAME }}
       - name: get nodes
-        run: kubectl set image deployment/node nodejs=$IMAGE:${{ github.run_number }} -n cheil-sesion3 --record 
+        run: kubectl set image deployment/node nodejs=devildeveloper/nodeapp:${{ github.run_number }} -n cheil-sesion3 --record 
