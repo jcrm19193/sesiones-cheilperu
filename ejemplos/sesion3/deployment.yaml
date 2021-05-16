@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node
+  labels:
+    app: deployment-node
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pod-node
+  template:
+    metadata:
+      labels:
+        app: pod-node
+    spec:
+      containers:
+      - name: nodejs
+        image: ghcr.io/maliaga-pantoja/nodeapp:15
+        env:
+        - name: PORT
+          value: "80"
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      imagePullSecrets:
+        - name: regcred
