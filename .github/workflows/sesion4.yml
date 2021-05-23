@@ -20,6 +20,6 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
     
       - name: Deploy lambda
-        working-directory: .ejemplos/sesion4
+        working-directory: ./ejemplos/sesion4
         run: |
           aws lambda udpate-function-code --function-name ${{ secrets.AWS_LAMBDA_FN_NAME }} --zip-file fileb://build.zip
