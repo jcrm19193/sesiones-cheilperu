@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: build package
         working-directory: ./ejemplos/sesion4
-        run: zip -r build.zip app.js package.json
+        run: zip -r build.zip app.js 
     
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v1
