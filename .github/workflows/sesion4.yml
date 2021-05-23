@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - sesion4
-
 jobs:
   push:
     run-on: ubuntu-latest
